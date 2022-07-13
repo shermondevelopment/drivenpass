@@ -1,3 +1,6 @@
+/** dotenv - variables */
+import 'dotenv/config'
+
 /** express */
 import express, { json } from 'express'
 
