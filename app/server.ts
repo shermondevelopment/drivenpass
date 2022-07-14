@@ -15,4 +15,6 @@ app.use(json())
 app.use(cors())
 
 /** running server in port 5000 */
-app.listen(process.env.PORT || 5000, () => console.log(`app running in ${process.env.PORT} 🚀🚀🚀🚀🚀`))
+app.listen(process.env.PORT || 5000, () =>
+  console.log(`app running in ${process.env.PORT} 🚀🚀🚀🚀🚀`)
+)
