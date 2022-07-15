@@ -2,6 +2,8 @@ import { Request, Response, NextFunction } from 'express'
 
 /** jwt */
 import { verify } from 'jsonwebtoken'
+
+/** AppError */
 import { AppError } from '../utils/error'
 
 // interface Request extee
