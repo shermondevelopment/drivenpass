@@ -7,13 +7,13 @@ import { verify } from 'jsonwebtoken'
 import { AppError } from '../utils/error'
 
 export default (req: Request, res: Response, next: NextFunction) => {
-  const token = req.headers.token as string
+  const token = req.headers.authorization as string
 
   if (!token) {
     return AppError(401, 'providing a token')
   }
 
-  if (token.split(' ')[0] === 'Bearer') {
+  if (token.split(' ')[0] !== 'Bearer') {
     return AppError(401, 'badly formatted token')
   }
 
