@@ -1,10 +1,18 @@
-import { Request, Response } from 'express'
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import { NextFunction, Request, Response } from 'express'
 
 interface ErrorResponse {
-  status: number
+  statusCode: number
   message: string
 }
 
-export default (error: ErrorResponse, req: Request, res: Response) => {
-  res.status(error.status).json({ error: error.message })
+export default (
+  error: ErrorResponse,
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  res
+    .status(error.statusCode)
+    .json({ error: error.message || 'internal server error' })
 }

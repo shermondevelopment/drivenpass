@@ -1,4 +1,4 @@
-export const AppError = (statusCode = 500, message: string | Error): Error => {
+export const AppError = (statusCode: number, message: string) => {
   throw {
     statusCode,
     message

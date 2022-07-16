@@ -1,6 +1,12 @@
 /** dotenv - variables */
 import 'dotenv/config'
 
+/** async errors */
+import 'express-async-errors'
+
+/** routers */
+import routers from './routers'
+
 /** cors */
 import cors from 'cors'
 
@@ -16,6 +22,7 @@ const app = express()
 /** middleware setting server */
 app.use(json())
 app.use(cors())
+app.use(routers)
 app.use(errorMiddleware)
 
 /** running server in port 5000 */

@@ -6,8 +6,6 @@ import { verify } from 'jsonwebtoken'
 /** AppError */
 import { AppError } from '../utils/error'
 
-// interface Request extee
-
 export default (req: Request, res: Response, next: NextFunction) => {
   const token = req.headers.token as string
 
