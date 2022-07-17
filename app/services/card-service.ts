@@ -4,7 +4,8 @@ import { Card } from '@prisma/client'
 import {
   findCardByIdAndLabel,
   createCard,
-  findCardById
+  findCardById,
+  findCard
 } from '../repository/card-repository'
 
 /** encypt */
@@ -58,7 +59,7 @@ export const FindSingleCardService = async (
   const searchCard = await findCardById(idCard)
 
   if (!searchCard) {
-    return AppError(404, 'credential not card')
+    return AppError(404, 'card not exists')
   }
 
   if (searchCard?.user_id !== userIdRequest) {
@@ -66,4 +67,23 @@ export const FindSingleCardService = async (
   }
 
   return { ...searchCard, password: decrypt(searchCard.password) }
+}
+
+export const FindCardService = async (userIdRequest: string) => {
+  const cards = await findCard(userIdRequest)
+
+  if (!cards) {
+    return AppError(404, 'card not exists')
+  }
+
+  const card = []
+  for (let i = 0; i < cards.length; i++) {
+    card.push({
+      ...cards[i],
+      secure_code: decrypt(cards[i].password),
+      password: decrypt(cards[i].password)
+    })
+  }
+
+  return card
 }

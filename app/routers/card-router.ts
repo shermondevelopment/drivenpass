@@ -8,7 +8,8 @@ import tokenValidation from '../middleware/token-validation'
 import { cardSchema } from '../validation/card-schema'
 import {
   NewCardController,
-  FindCardController
+  FindCardController,
+  FinCardsController
 } from '../controllers/card/card-controller'
 
 const cardRouter = Router()
@@ -22,5 +23,6 @@ cardRouter.post(
 )
 
 cardRouter.get('/card/:idCard', tokenValidation, FindCardController)
+cardRouter.get('/card', tokenValidation, FinCardsController)
 
 export default cardRouter

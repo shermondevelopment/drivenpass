@@ -27,7 +27,7 @@ export const createNotation = async (
 }
 
 export const findSingleNotation = async (idNotation: string) => {
-  return await prisma.note.findFirst({
+  return await prisma.note.findUnique({
     where: {
       id: idNotation
     }

@@ -18,7 +18,7 @@ export const createCredential = async (credential: Omit<Credential, 'id'>) => {
 }
 
 export const findSingleCredentialByUser = async (idCredential: string) => {
-  return await prisma.credential.findFirst({
+  return await prisma.credential.findUnique({
     where: {
       id: idCredential
     }

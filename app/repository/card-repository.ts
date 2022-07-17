@@ -22,9 +22,17 @@ export const createCard = async (cardOptions: Omit<Card, 'id'>) => {
 }
 
 export const findCardById = async (idCard: string) => {
-  return await prisma.card.findFirst({
+  return await prisma.card.findUnique({
     where: {
       id: idCard
+    }
+  })
+}
+
+export const findCard = async (user_id: string) => {
+  return await prisma.card.findMany({
+    where: {
+      user_id
     }
   })
 }
