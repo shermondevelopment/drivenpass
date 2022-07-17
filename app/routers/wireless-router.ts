@@ -1,7 +1,10 @@
 import { Router } from 'express'
 
 /** controllers */
-import { NewWirelessController } from '../controllers/wireless/wireless-controller'
+import {
+  NewWirelessController,
+  FindWirelessByIdController
+} from '../controllers/wireless/wireless-controller'
 
 /** middlewares */
 import tokenValidation from '../middleware/token-validation'
@@ -17,6 +20,12 @@ wirelessRouter.post(
   tokenValidation,
   validationSchemaMiddleware(schemaWireless),
   NewWirelessController
+)
+
+wirelessRouter.get(
+  '/wireless/:idWireless',
+  tokenValidation,
+  FindWirelessByIdController
 )
 
 export default wirelessRouter

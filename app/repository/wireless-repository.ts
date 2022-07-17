@@ -20,7 +20,7 @@ export const createWireless = async (wireless: Omit<Wireless, 'id'>) => {
 }
 
 export const findWireless = async (idWireless: string) => {
-  return await prisma.wireless.delete({
+  return await prisma.wireless.findUnique({
     where: {
       id: idWireless
     }
