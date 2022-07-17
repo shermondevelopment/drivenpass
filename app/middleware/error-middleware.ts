@@ -14,6 +14,6 @@ export default (
 ) => {
   console.log(error)
   res
-    .status(error.statusCode)
+    .status(error.statusCode || 500)
     .json({ error: error.message || 'internal server error' })
 }

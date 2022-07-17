@@ -4,7 +4,8 @@ import { Request, Response } from 'express'
 import {
   NewCardService,
   FindSingleCardService,
-  FindCardService
+  FindCardService,
+  DeleteCardService
 } from '../../services/card-service'
 
 export const NewCardController = async (req: Request, res: Response) => {
@@ -33,4 +34,13 @@ export const FinCardsController = async (req: Request, res: Response) => {
   const cardSearch = await FindCardService(userIdRequest)
 
   res.status(200).json(cardSearch)
+}
+
+export const DeleteCardController = async (req: Request, res: Response) => {
+  const { idCard } = req.params
+  const userIdRequest = res.locals.user.id
+
+  await DeleteCardService(idCard, userIdRequest)
+
+  res.sendStatus(204)
 }

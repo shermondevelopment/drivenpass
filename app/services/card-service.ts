@@ -5,7 +5,8 @@ import {
   findCardByIdAndLabel,
   createCard,
   findCardById,
-  findCard
+  findCard,
+  deleteCard
 } from '../repository/card-repository'
 
 /** encypt */
@@ -86,4 +87,21 @@ export const FindCardService = async (userIdRequest: string) => {
   }
 
   return card
+}
+
+export const DeleteCardService = async (
+  idCard: string,
+  userIdRequest: string
+) => {
+  const searchCard = await findCardById(idCard)
+
+  if (!searchCard) {
+    return AppError(404, 'card not exists')
+  }
+
+  if (searchCard.user_id !== userIdRequest) {
+    return AppError(401, 'you do not have access to card')
+  }
+
+  await deleteCard(idCard)
 }

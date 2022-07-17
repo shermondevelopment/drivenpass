@@ -36,3 +36,11 @@ export const findCard = async (user_id: string) => {
     }
   })
 }
+
+export const deleteCard = async (idCard: string) => {
+  return await prisma.card.delete({
+    where: {
+      id: idCard
+    }
+  })
+}

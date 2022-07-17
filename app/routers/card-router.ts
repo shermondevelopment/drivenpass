@@ -9,7 +9,8 @@ import { cardSchema } from '../validation/card-schema'
 import {
   NewCardController,
   FindCardController,
-  FinCardsController
+  FinCardsController,
+  DeleteCardController
 } from '../controllers/card/card-controller'
 
 const cardRouter = Router()
@@ -24,5 +25,6 @@ cardRouter.post(
 
 cardRouter.get('/card/:idCard', tokenValidation, FindCardController)
 cardRouter.get('/card', tokenValidation, FinCardsController)
+cardRouter.delete('/card/:idCard', tokenValidation, DeleteCardController)
 
 export default cardRouter
