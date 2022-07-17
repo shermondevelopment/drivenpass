@@ -24,3 +24,15 @@ export const findSingleCredentialByUser = async (idCredential: string) => {
     }
   })
 }
+
+export const FindCredential = async (user_id: string) => {
+  return await prisma.credential.findMany({
+    where: {
+      user_id
+    }
+  })
+}
+
+export const removeCredential = async (idCredential: string) => {
+  return await prisma.credential.delete({ where: { id: idCredential } })
+}

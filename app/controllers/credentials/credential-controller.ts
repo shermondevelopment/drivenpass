@@ -3,7 +3,9 @@ import { Request, Response } from 'express'
 /** services */
 import {
   NewCredential,
-  findOneCredential
+  findOneCredential,
+  findCredential,
+  deleteCredential
 } from '../../services/credential-service'
 
 export const CredentialController = async (req: Request, res: Response) => {
@@ -29,5 +31,22 @@ export const FindSingleCredential = async (req: Request, res: Response) => {
 
   const credential = await findOneCredential(idCredential, userIdRequest)
 
-  return res.status(200).json({ credential })
+  res.status(200).json({ credential })
+}
+
+export const FindCredential = async (req: Request, res: Response) => {
+  const userIdRequest = res.locals.user.id
+
+  const credentials = await findCredential(userIdRequest)
+
+  res.status(200).json(credentials)
+}
+
+export const DeleteCredential = async (req: Request, res: Response) => {
+  const { idCredential } = req.params
+  const userIdRequest = res.locals.user.id
+
+  await deleteCredential(idCredential, userIdRequest)
+
+  res.sendStatus(204)
 }

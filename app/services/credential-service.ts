@@ -8,7 +8,9 @@ import { decrypt, encrypt } from '../utils/encrypt'
 import {
   findByCredentialToLabelAndUser,
   createCredential,
-  findSingleCredentialByUser
+  findSingleCredentialByUser,
+  FindCredential,
+  removeCredential
 } from '../repository/credential-repository'
 
 export const NewCredential = async (
@@ -51,4 +53,40 @@ export const findOneCredential = async (
   }
 
   return { ...credential, password: decrypt(credential.password) }
+}
+
+export const findCredential = async (userIdRequest: string) => {
+  const credentials = await FindCredential(userIdRequest)
+
+  if (!credentials) {
+    return AppError(404, 'credential not exists')
+  }
+
+  const credentialResponse = []
+
+  for (let i = 0; i < credentials.length; i++) {
+    credentialResponse.push({
+      ...credentials[i],
+      password: decrypt(credentials[i].password)
+    })
+  }
+
+  return credentialResponse
+}
+
+export const deleteCredential = async (
+  idCredential: string,
+  userIdRequest: string
+) => {
+  const credential = await findSingleCredentialByUser(idCredential)
+
+  if (!credential) {
+    return AppError(404, 'credential not exists')
+  }
+
+  if (credential?.user_id !== userIdRequest) {
+    return AppError(401, 'you do not have access to credential')
+  }
+
+  await removeCredential(idCredential)
 }
