@@ -2,6 +2,8 @@ import { Router } from 'express'
 
 /** controller notation */
 import {
+  DeleteNotionController,
+  FindNotationController,
   FindSingleNotationController,
   NewNotationController
 } from '../controllers/notation/notation-controller'
@@ -28,6 +30,16 @@ notationRouter.get(
   '/notation/:idNotation',
   tokenValidation,
   FindSingleNotationController
+)
+
+/** find notations */
+notationRouter.get('/notation', tokenValidation, FindNotationController)
+
+/** delete notion  */
+notationRouter.delete(
+  '/notation/:idNotation',
+  tokenValidation,
+  DeleteNotionController
 )
 
 export default notationRouter

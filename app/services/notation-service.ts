@@ -5,7 +5,9 @@ import { AppError } from '../utils/error'
 import {
   findByNotationTitleAndId,
   createNotation,
-  findSingleNotation
+  findSingleNotation,
+  findNotationByUser,
+  deleteNotation
 } from '../repository/notation-repository'
 
 export const NewNotationService = async (
@@ -37,4 +39,31 @@ export const FindSingleNotationService = async (
   }
 
   return findNotation
+}
+
+export const FindNotationService = async (userIdRequest: string) => {
+  const searchNotations = await findNotationByUser(userIdRequest)
+
+  if (!searchNotations) {
+    return AppError(404, 'notations not exists')
+  }
+
+  return searchNotations
+}
+
+export const DeleteNotationService = async (
+  idNotation: string,
+  userIdRequest: string
+) => {
+  const searchNotion = await findSingleNotation(idNotation)
+
+  if (!searchNotion) {
+    return AppError(404, 'notion not exists')
+  }
+
+  if (searchNotion?.user_id !== userIdRequest) {
+    return AppError(401, 'you do not have access to notion')
+  }
+
+  await deleteNotation(idNotation)
 }

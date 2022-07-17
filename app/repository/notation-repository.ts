@@ -33,3 +33,19 @@ export const findSingleNotation = async (idNotation: string) => {
     }
   })
 }
+
+export const findNotationByUser = async (user_id: string) => {
+  return await prisma.note.findMany({
+    where: {
+      user_id
+    }
+  })
+}
+
+export const deleteNotation = async (idNotation: string) => {
+  return await prisma.note.delete({
+    where: {
+      id: idNotation
+    }
+  })
+}

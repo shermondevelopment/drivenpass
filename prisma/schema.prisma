@@ -7,12 +7,19 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum CardType {
+  credit
+  debit
+  both
+}
+
 model User {
   id         String       @id @default(uuid())
   email      String       @unique
   password   String
   Credential Credential[]
   Note       Note[]
+  Card       Card[]
 }
 
 model Credential {
@@ -31,4 +38,18 @@ model Note {
   notation String @db.VarChar(1000)
   user_id  String
   user     User   @relation(fields: [user_id], references: [id])
+}
+
+model Card {
+  id              String   @id @default(uuid())
+  number          String
+  holder_name     String
+  secure_code     String
+  expiration_date String
+  is_virtual      Boolean  @default(false)
+  type_card       CardType
+  password        String
+  label           String
+  user_id         String
+  user            User     @relation(fields: [user_id], references: [id])
 }
