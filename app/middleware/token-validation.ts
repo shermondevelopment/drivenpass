@@ -18,8 +18,9 @@ export default (req: Request, res: Response, next: NextFunction) => {
   }
 
   try {
-    const decode = verify(token, process.env.JWT_KEY as string)
-    res.locals.id = decode
+    const decode = verify(token.split(' ')[1], process.env.JWT_KEY as string)
+
+    res.locals.user = decode
 
     next()
   } catch (error) {

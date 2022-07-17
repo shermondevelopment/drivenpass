@@ -12,6 +12,7 @@ export default (
   res: Response,
   next: NextFunction
 ) => {
+  console.log(error)
   res
     .status(error.statusCode)
     .json({ error: error.message || 'internal server error' })
