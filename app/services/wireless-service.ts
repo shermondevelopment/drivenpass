@@ -2,7 +2,8 @@ import { Wireless } from '@prisma/client'
 import {
   createWireless,
   findWireless,
-  findManyWireless
+  findManyWireless,
+  deleteWireless
 } from '../repository/wireless-repository'
 import { decrypt, encrypt } from '../utils/encrypt'
 import { AppError } from '../utils/error'
@@ -53,4 +54,21 @@ export const FindWirelessService = async (userIdRequest: string) => {
   }
 
   return wireless
+}
+
+export const DeleteWirelessService = async (
+  idWireless: string,
+  userIdRequest: string
+) => {
+  const searchWireless = await findWireless(idWireless)
+
+  if (!searchWireless) {
+    return AppError(404, 'wireless not exists')
+  }
+
+  if (searchWireless.user_id !== userIdRequest) {
+    return AppError(401, 'you do not have access to wireless')
+  }
+
+  await deleteWireless(idWireless)
 }

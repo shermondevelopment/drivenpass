@@ -4,7 +4,8 @@ import { Router } from 'express'
 import {
   NewWirelessController,
   FindWirelessByIdController,
-  FindWirelessController
+  FindWirelessController,
+  DeleteWirelessController
 } from '../controllers/wireless/wireless-controller'
 
 /** middlewares */
@@ -30,5 +31,11 @@ wirelessRouter.get(
 )
 
 wirelessRouter.get('/wireless', tokenValidation, FindWirelessController)
+
+wirelessRouter.delete(
+  '/wireless/:idWireless',
+  tokenValidation,
+  DeleteWirelessController
+)
 
 export default wirelessRouter

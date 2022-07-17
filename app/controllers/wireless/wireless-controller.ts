@@ -1,6 +1,7 @@
 import { Request, Response } from 'express'
 import {
   CreateWirelessService,
+  DeleteWirelessService,
   FindSingleWirelessService,
   FindWirelessService
 } from '../../services/wireless-service'
@@ -35,4 +36,11 @@ export const FindWirelessController = async (req: Request, res: Response) => {
 
   const wireless = await FindWirelessService(user_id)
   res.status(200).json(wireless)
+}
+
+export const DeleteWirelessController = async (req: Request, res: Response) => {
+  const user_id = res.locals.user.id
+  const { idWireless } = req.params
+  await DeleteWirelessService(idWireless, user_id)
+  res.sendStatus(204)
 }
