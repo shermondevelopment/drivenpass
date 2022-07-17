@@ -20,6 +20,7 @@ model User {
   Credential Credential[]
   Note       Note[]
   Card       Card[]
+  Wireless   Wireless[]
 }
 
 model Credential {
@@ -52,4 +53,13 @@ model Card {
   label           String
   user_id         String
   user            User     @relation(fields: [user_id], references: [id])
+}
+
+model Wireless {
+  id       String @id @default(uuid())
+  label    String
+  wireless String
+  password String
+  user_id  String
+  user     User   @relation(fields: [user_id], references: [id])
 }
