@@ -1,7 +1,8 @@
 import { Request, Response } from 'express'
 import {
   CreateWirelessService,
-  FindSingleWirelessService
+  FindSingleWirelessService,
+  FindWirelessService
 } from '../../services/wireless-service'
 
 export const NewWirelessController = async (req: Request, res: Response) => {
@@ -26,5 +27,12 @@ export const FindWirelessByIdController = async (
   const { idWireless } = req.params
 
   const wireless = await FindSingleWirelessService(idWireless, user_id)
+  res.status(200).json(wireless)
+}
+
+export const FindWirelessController = async (req: Request, res: Response) => {
+  const user_id = res.locals.user.id
+
+  const wireless = await FindWirelessService(user_id)
   res.status(200).json(wireless)
 }

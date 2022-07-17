@@ -1,14 +1,10 @@
 import { Wireless } from '@prisma/client'
 import prisma from '../database'
 
-export const findWirelessByIdAndLabel = async (
-  label: string,
-  user_id: string
-) => {
-  return await prisma.wireless.findFirst({
+export const findManyWireless = async (user_id: string) => {
+  return await prisma.wireless.findMany({
     where: {
-      label,
-      AND: { user_id }
+      user_id
     }
   })
 }
