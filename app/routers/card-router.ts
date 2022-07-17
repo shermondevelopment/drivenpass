@@ -6,7 +6,10 @@ import tokenValidation from '../middleware/token-validation'
 
 /** card schema */
 import { cardSchema } from '../validation/card-schema'
-import { NewCardController } from '../controllers/card/card-controller'
+import {
+  NewCardController,
+  FindCardController
+} from '../controllers/card/card-controller'
 
 const cardRouter = Router()
 
@@ -17,5 +20,7 @@ cardRouter.post(
   validationSchemaMiddleware(cardSchema),
   NewCardController
 )
+
+cardRouter.get('/card/:idCard', tokenValidation, FindCardController)
 
 export default cardRouter

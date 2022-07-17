@@ -1,10 +1,14 @@
 import { Card } from '@prisma/client'
 
 /* repository */
-import { findCardByIdAndLabel, createCard } from '../repository/card-repository'
+import {
+  findCardByIdAndLabel,
+  createCard,
+  findCardById
+} from '../repository/card-repository'
 
 /** encypt */
-import { encrypt } from '../utils/encrypt'
+import { decrypt, encrypt } from '../utils/encrypt'
 
 /** error app */
 import { AppError } from '../utils/error'
@@ -45,4 +49,21 @@ export const NewCardService = async (
   const cardSave = await createCard(card)
 
   return cardSave
+}
+
+export const FindSingleCardService = async (
+  idCard: string,
+  userIdRequest: string
+) => {
+  const searchCard = await findCardById(idCard)
+
+  if (!searchCard) {
+    return AppError(404, 'credential not card')
+  }
+
+  if (searchCard?.user_id !== userIdRequest) {
+    return AppError(401, 'you do not have access to card')
+  }
+
+  return { ...searchCard, password: decrypt(searchCard.password) }
 }

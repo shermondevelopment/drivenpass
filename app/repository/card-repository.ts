@@ -20,3 +20,11 @@ export const createCard = async (cardOptions: Omit<Card, 'id'>) => {
     }
   })
 }
+
+export const findCardById = async (idCard: string) => {
+  return await prisma.card.findFirst({
+    where: {
+      id: idCard
+    }
+  })
+}
